@@ -16,6 +16,8 @@ MultipleSeqAlignment
 
 **Bio.Phylo.TreeConstruction:**
 DistanceCalculator
+DistanceTreeConstructor 
+
 **Bio.SeqRecord:**
 SeqRecord
 
@@ -31,37 +33,31 @@ ttest_1samp
 
 **matplotlib**
 
+
 **networkx**
 
 **pydot**
 
 Or you can copy this code into your console:
 
-from Bio import SeqIO,  AlignIO
-
-from Bio.Align import MultipleSeqAlignment
-
-from Bio.SeqRecord import SeqRecord
-
-from Bio.Seq import Seq
-
-from Bio import Phylo
-
+from Bio import pairwise2, Phylo, SeqIO
+from Bio.Align import MultipleSeqAlignment, substitution_matrices
+from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
 from Bio import SeqIO
 
-from Bio.Phylo.TreeConstruction import DistanceCalculator
-
-from Bio.Phylo.TreeConstruction import DistanceTreeConstructor
-
-from scipy.stats import ttest_1samp
-
-import pandas as pd 
-
+import math
+import os
+from datetime import datetime
 import re
 
-import matplotlib as plt
-
 import matplotlib.pyplot as plt
+import pandas as pd
+
+
+
+
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
 
 
 
