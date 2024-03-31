@@ -11,7 +11,7 @@ import pandas as pd
 from Bio import  Phylo, SeqIO
 from Bio.Align import MultipleSeqAlignment, PairwiseAligner, substitution_matrices
 from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
-from Bio import SeqIO
+
 
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
@@ -20,6 +20,7 @@ from reportlab.pdfgen import canvas
 
 """
 Prompt user to input the breed file and the query sequence file paths, 
+
 Need to hashtage this out to get my pytests to run 
 
 """
@@ -44,11 +45,7 @@ def define_query_file ():
 breed_file = define_breed_file()
 query_file = define_query_file()    
 
-#/Users/chalupa/Documents/GitHub/breed_identifier/dog_breeds.fa
-
-
-#/Users/chalupa/Documents/GitHub/breed_identifier/mystery.fa
-
+""" use this to run pytests (instead of code above)"""
 # breed_file = '/Users/chalupa/Documents/GitHub/breed_identifier/dog_breeds.fa'
 # query_file = '/Users/chalupa/Documents/GitHub/breed_identifier/mystery.fa'
 
