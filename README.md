@@ -49,7 +49,7 @@ A4
 canvas
 
 
-Or you can copy this code into your console:
+## Imports required 
 
 import math
 import os
@@ -68,6 +68,22 @@ from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstruct
 
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
+
+## Pip installs required for this program to run 
+
+pip install biopython
+pip install matplotlib
+pip install pandas
+pip install pytest
+pip install reportlab
+
+
+**Testing**
+
+Pytest is used to test out this program
+The pytest file can be found in the test folder along with some test files 
+Please note you might have to change the directory to call the breed_identifier module to load it in for the pytest 
+You might also need to remove the input promtps in the breed_identifier file and set the breed_file and query_file manually for pytest to run sucessfuly ( Unfortunately, I could not figure out how to by pass this error )
 
 
 

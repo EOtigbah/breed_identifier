@@ -45,9 +45,12 @@ def define_query_file ():
 breed_file = define_breed_file()
 query_file = define_query_file()    
 
-""" use this to run pytests (instead of code above)"""
-# breed_file = '/Users/chalupa/Documents/GitHub/breed_identifier/dog_breeds.fa'
-# query_file = '/Users/chalupa/Documents/GitHub/breed_identifier/mystery.fa'
+""" 
+Use this to run pytests (instead of code above)
+Please set your file paths manually
+"""
+# breed_file = '/Users/chalupa/Documents/GitHub/breed_identifier/dog_breeds.fa' <- replace with your own file path for pytest
+# query_file = '/Users/chalupa/Documents/GitHub/breed_identifier/mystery.fa' <- replace with your own file path for pytest
 
 
 def database_processing(breed_file):
@@ -62,7 +65,7 @@ def database_processing(breed_file):
     # '?' tells python to lazy match ie match as little characters as possible 
     breed_search = re.compile(r'\[breed=(.*?)\]') # ie pull"[breed =" and "]""
 
-        # Set our list to store breeds 
+    # Initialize list to store breeds later
     breed_database = []
 
     with open(breed_file, 'r') as file:
@@ -137,7 +140,7 @@ def calculate_identity_percentage (alignment, query_sequence, alignment_length):
     query seqeunce is used as our comparative seqeunce
     identity score formula = (match base count / alignment length) * 100  
     """
-    # Make list to store alignment score 
+    # Initialize list to store alignment score 
     identity_scores = []
     
     # For loop --> to loop through the alignment 
@@ -164,7 +167,7 @@ def convert_data_df_output (alignment, identity_scores):
     This funciton converts our lists to a pandas dataframe
     """
 
-    # Assemble our list contining the record_ID, breed, identity percentage and sequence 
+    # Initialize list, assemble our list contining the record_ID, breed, identity percentage and sequence  
     data = []
 
     # Set data catagories we want to pull and where we are pullign them from 
@@ -188,7 +191,7 @@ def convert_data_df_csv (alignment, identity_scores):
     This funciton converts our lists to a pandas dataframe
     """
 
-    # Assemble our list contining the record_ID, breed, identity percentage and sequence 
+    # Initialize list, assemble our list contining the record_ID, breed, identity percentage and sequence 
     data = []
 
     # Set data catagories we want to pull and where we are pullign them from 
@@ -281,10 +284,10 @@ def get_differences (query_sequence_str, matched_breed_sequence_str):
     aligned_query_sequence = match_alignment[0][0] 
     aligned_matched_sequence = match_alignment[0][1]
 
-# Initialize a list to store the differences
+    # Initialize a list to store the differences
     differences = []
 
-# Compare the sequences nucleotide by nucleotide
+    # Compare the sequences nucleotide by nucleotide
     for i in range(len(aligned_query_sequence)): # Use a for loop --> loop over each postion of the alignment query seqeunce (use the length as our range)
 
         # If statement to get differences using "!=" not equal expression 
@@ -304,29 +307,31 @@ def calculate_alignment_score(sequence1, sequence2):
     The logic of this is 
 
     2 points if the nucleotides in the query and matched sequence match 
-    -3 points if the mutation is a transation mutation (this is a more likely mutation in terms of evolution)
+    -3 points if the mutation is a transtion mutation (this is a more likely mutation in terms of evolution)
     -4 points if the mutation is a tranversion mutation (this is less likely than the transation mutation) 
     -2 points if the posion is a space in one seqeunce with a nucleotide in the other seqeuence 
     0 points if the match is just a gap in both seqeunces 
     """
     
-    #### get if a deltion mutation is more likely than a transation mutation 
+
+    # Set mutation scoring values
     nucleotide_match = 2
-    nucleotide_mismatch_transation = -3
+    nucleotide_mismatch_transition = -3
     nucleotide_mismatch_transversions = -4
-    nucleotide_mismatch_gap = -2
+    nucleotide_mismatch_gap = -5
     gap_gap = 0 
 
+    # Make a dictionary with mutation scoring values to match up to mutation key 
     nucleotide_scoring_dict = {
         ('A', 'A'): nucleotide_match,
         ('C', 'C'): nucleotide_match,
         ('G', 'G'): nucleotide_match,
         ('T', 'T'): nucleotide_match,
         ('-', '-'): gap_gap,
-        ('A', 'G'): nucleotide_mismatch_transation,
-        ('C', 'T'): nucleotide_mismatch_transation,
-        ('G', 'A'): nucleotide_mismatch_transation,
-        ('T', 'C'): nucleotide_mismatch_transation,
+        ('A', 'G'): nucleotide_mismatch_transition,
+        ('C', 'T'): nucleotide_mismatch_transition,
+        ('G', 'A'): nucleotide_mismatch_transition,
+        ('T', 'C'): nucleotide_mismatch_transition,
         ('A', 'C'): nucleotide_mismatch_transversions,
         ('A', 'T'): nucleotide_mismatch_transversions,
         ('C', 'G'): nucleotide_mismatch_transversions,
@@ -549,9 +554,10 @@ with open(pdf_output_file, 'wb') as f:
         y -= 10  # This adjusts spacing between each line 
 
     c.save()
-
+# Save results to a PDF file 
 print(f'Summary of results saved to a PDF in: {pdf_output_file}')
 
+# Save the dataframe of record_IDs breeds and identity percentages to a csv file 
 csv_output_file = os.path.join(folder_name, 'analysis_csv.csv')
 breed_match_csv.to_csv(csv_output_file, sep=',', index=False, encoding='utf-8')
 
